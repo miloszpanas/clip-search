@@ -1,0 +1,9 @@
+.clip {
+  display: flex !important;
+  align-items: center !important;
+  cursor: pointer
+}
+
+.clip.item img{
+  max-width: 150px;
+}
