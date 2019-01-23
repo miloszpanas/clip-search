@@ -10,6 +10,10 @@ class App extends React.Component {
     selectedClip: null 
   };
 
+  componentDidMount() {
+      this.onSearchTermSubmit("javascript pro");
+  }
+
   onSearchTermSubmit = async (searchTerm) => {
     const response = await youtubeAPI.get("/search", {
       params: {
@@ -17,20 +21,31 @@ class App extends React.Component {
       }
     });
 
-    this.setState({ clips: response.data.items });
+    this.setState({ 
+      clips: response.data.items,
+      selectedClip: response.data.items[0]
+    });
   };
 
   onClipSelect = (clip) => {
     this.setState({ selectedClip: clip });
   }
 
+
   render() {
     return (
       <div className="ui container">
         <SearchBar onSearchTermSubmit={this.onSearchTermSubmit} />
-        <SingleClipDetail clip={this.state.selectedClip} />
-        <p>There are {this.state.clips.length} videos</p>
-        <ClipsList clips={this.state.clips} onClipSelect={this.onClipSelect} />
+        <div className="ui grid">
+          <div className="ui row">
+            <div className="eleven wide column">
+              <SingleClipDetail clip={this.state.selectedClip} />
+            </div>
+            <div className="five wide column">
+              <ClipsList clips={this.state.clips} onClipSelect={this.onClipSelect} />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
