@@ -1,9 +1,9 @@
 import React from "react";
 import "./SingleClip.css"
 
-const SingleCLip = ({ clip }) => {
+const SingleCLip = ({ clip, onClipSelect }) => {
   return (
-    <div className="clip item">
+    <div className="clip item" onClick={() => onClipSelect(clip)}>
       <img className="ui image" src={clip.snippet.thumbnails.medium.url} alt="" />
       <div className="content">
         <div className="header">{clip.snippet.title}</div>
